@@ -21,17 +21,17 @@ CREATE TABLE IF NOT EXISTS `sm_owned_properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `price` double NOT NULL,
-  `owner` varchar(60) NOT NULL,
+  `owner` varchar(60) DEFAULT NULL,
   `locked` int(11) NOT NULL DEFAULT 1,
   `key1` varchar(60) NOT NULL,
   `key2` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table essentialmode.sm_owned_properties: ~0 rows (approximately)
+-- Dumping data for table essentialmode.sm_owned_properties: ~1 rows (approximately)
 /*!40000 ALTER TABLE `sm_owned_properties` DISABLE KEYS */;
 INSERT INTO `sm_owned_properties` (`id`, `name`, `price`, `owner`, `locked`, `key1`, `key2`) VALUES
-	(52, '123BrougeAvenue', 150000, 'NULL', 1, '', '');
+	(53, '123BrougeAvenue', 150000, 'NULL', 1, '', '');
 /*!40000 ALTER TABLE `sm_owned_properties` ENABLE KEYS */;
 
 -- Dumping structure for table essentialmode.sm_properties
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `sm_properties_items` (
   `count` int(11) NOT NULL,
   `amount` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table essentialmode.sm_properties_items: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sm_properties_items` DISABLE KEYS */;
@@ -84,7 +84,12 @@ CREATE TABLE IF NOT EXISTS `sm_properties_objects` (
   `locked` int(11) NOT NULL DEFAULT 1,
   `property` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+INSERT INTO `items` (`name`, `label`, `weight`, `rare`, `can_remove`) VALUES
+	('p_v_43_safe_s', 'Small Safe', 15, 0, 1);
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+
 
 -- Dumping data for table essentialmode.sm_properties_objects: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sm_properties_objects` DISABLE KEYS */;
