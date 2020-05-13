@@ -366,7 +366,6 @@ Citizen.CreateThread(function()
 						TriggerEvent("SM_Properties:Option", "Exit", {properties[i].locations[j].exit.x, properties[i].locations[j].exit.y, properties[i].locations[j].exit.z}, 2.0, function(cb)
 							if(cb) then
 								inside = false
-								currentProperty = nil
 								TriggerEvent("dooranim")
 								Wait(750)
 								DoScreenFadeOut(1)
@@ -375,8 +374,9 @@ Citizen.CreateThread(function()
 								SetEntityHeading(GetPlayerPed(-1), properties[i].locations[j].outside.h)
 								for k, v in pairs(props) do
 									if v.property == currentProperty then
-										DeleteObject(Prop)
+										DeleteObject(v.Prop)
 									end
+									table.removekey(props, k)
 									currentProperty = nil
 								end
 								DoScreenFadeIn(1)
@@ -417,6 +417,12 @@ Citizen.CreateThread(function()
 end)
 
 
+function table.removekey(table, key)
+    local element = table[key]
+    table[key] = nil
+    return element
+end
+
 ----- Furniture -----
 
 local update = false
@@ -451,18 +457,12 @@ AddEventHandler('SM_Properties:updateStorageLock', function(coords, to)
 	end
 end)
 
-local function removeKey(table, key)
- 
-	table[key] = nil
-   
-end
-
 RegisterNetEvent('SM_Properties:deleteObjectsOnSell')
 AddEventHandler('SM_Properties:deleteObjectsOnSell', function(propertyName)
 	for f,L in pairs (props) do
 		if L.property == propertyName then
 			DeleteObject(L.Prop)
-			removeKey(props, f)
+			table.removekey(props, f)
 		end
 	end
 end)
@@ -635,9 +635,9 @@ function checkLock2()
 	end)
 end
 
---[[RegisterCommand('helloooo', function()
+RegisterCommand('helloooo', function()
 	TriggerServerEvent('SM_Properties:updateSpawned')
-end)]]
+end)
 
 ---- inventorys ----
 function OpenPlayerInventoryMenu()
